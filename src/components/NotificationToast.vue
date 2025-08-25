@@ -1,64 +1,70 @@
 <template>
-  <Teleport to="body">
-    <div class="fixed top-4 right-4 z-50 space-y-2">
-      <TransitionGroup
-        name="notification"
-        tag="div"
-        class="space-y-2"
+  <div class="notification-toast">
+    <TransitionGroup
+      name="notification"
+      tag="div"
+      class="fixed top-4 right-4 z-50 space-y-2"
+    >
+      <div
+        v-for="notification in notifications"
+        :key="notification.id"
+        class="notification-item"
+        :class="notificationClasses(notification)"
       >
-        <div
-          v-for="notification in notifications"
-          :key="notification.id"
-          class="notification animate-slide-up" :class="[
-            `notification-${notification.type}`
-          ]"
-        >
-          <div class="p-4">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <Icon
-                  :name="getIconName(notification.type)"
-                  :class="getIconClass(notification.type)"
-                  class="w-5 h-5"
-                />
-              </div>
-              <div class="ml-3 flex-1">
-                <p class="text-sm font-medium text-gray-900">
-                  {{ notification.message }}
-                </p>
-              </div>
-              <div class="ml-4 flex-shrink-0 flex">
-                <button
-                  @click="removeNotification(notification.id)"
-                  class="inline-flex text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600"
-                >
-                  <Icon name="mdi:close" class="w-4 h-4" />
-                </button>
-              </div>
-            </div>
+        <div class="notification-content">
+          <Icon
+            :name="getIcon(notification.type)"
+            class="notification-icon"
+          />
+          <div class="notification-text">
+            <h4 v-if="notification.title" class="notification-title">
+              {{ notification.title }}
+            </h4>
+            <p class="notification-message">
+              {{ notification.message }}
+            </p>
           </div>
+          <button
+            @click="removeNotification(notification.id)"
+            class="notification-close"
+          >
+            <Icon name="mdi:close" class="w-4 h-4" />
+          </button>
         </div>
-      </TransitionGroup>
-    </div>
-  </Teleport>
+        <div
+          v-if="notification.duration !== 0"
+          class="notification-progress"
+          :style="{ animationDuration: `${notification.duration}ms` }"
+        />
+      </div>
+    </TransitionGroup>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useAppStore } from '@/stores/app'
+import { useNotificationStore } from '@/stores/notification'
 
-const appStore = useAppStore()
-
-// 스토어에서 알림 목록 가져오기
-const notifications = computed(() => appStore.notifications)
-
-// 알림 제거
-const removeNotification = (id: string) => {
-  appStore.removeNotification(id)
+interface Notification {
+  id: string
+  type: 'success' | 'error' | 'warning' | 'info'
+  title?: string
+  message: string
+  duration: number
 }
 
-// 아이콘 이름 반환
-const getIconName = (type: string) => {
+const notificationStore = useNotificationStore()
+
+const notifications = computed(() => notificationStore.notifications)
+
+const notificationClasses = (notification: Notification) => {
+  return [
+    'notification-item',
+    `notification-item--${notification.type}`
+  ]
+}
+
+const getIcon = (type: string) => {
   const icons = {
     success: 'mdi:check-circle',
     error: 'mdi:alert-circle',
@@ -68,35 +74,108 @@ const getIconName = (type: string) => {
   return icons[type as keyof typeof icons] || 'mdi:information'
 }
 
-// 아이콘 클래스 반환
-const getIconClass = (type: string) => {
-  const classes = {
-    success: 'text-green-400',
-    error: 'text-red-400',
-    warning: 'text-yellow-400',
-    info: 'text-blue-400'
-  }
-  return classes[type as keyof typeof classes] || 'text-blue-400'
+const removeNotification = (id: string) => {
+  notificationStore.removeNotification(id)
 }
 </script>
 
 <style scoped>
+.notification-item {
+  @apply bg-white rounded-lg shadow-lg border-l-4 p-4 min-w-[320px] max-w-[480px];
+  @apply transform transition-all duration-300 ease-in-out;
+}
+
+.notification-item--success {
+  @apply border-green-500;
+}
+
+.notification-item--error {
+  @apply border-red-500;
+}
+
+.notification-item--warning {
+  @apply border-yellow-500;
+}
+
+.notification-item--info {
+  @apply border-blue-500;
+}
+
+.notification-content {
+  @apply flex items-start gap-3;
+}
+
+.notification-icon {
+  @apply w-5 h-5 mt-0.5 flex-shrink-0;
+}
+
+.notification-item--success .notification-icon {
+  @apply text-green-500;
+}
+
+.notification-item--error .notification-icon {
+  @apply text-red-500;
+}
+
+.notification-item--warning .notification-icon {
+  @apply text-yellow-500;
+}
+
+.notification-item--info .notification-icon {
+  @apply text-blue-500;
+}
+
+.notification-text {
+  @apply flex-1 min-w-0;
+}
+
+.notification-title {
+  @apply text-sm font-medium text-gray-900 mb-1;
+}
+
+.notification-message {
+  @apply text-sm text-gray-600;
+}
+
+.notification-close {
+  @apply text-gray-400 hover:text-gray-600 transition-colors;
+  @apply p-1 rounded-full hover:bg-gray-100;
+}
+
+.notification-progress {
+  @apply absolute bottom-0 left-0 h-1 bg-current opacity-20;
+  @apply animate-progress;
+}
+
+/* Transitions */
 .notification-enter-active,
 .notification-leave-active {
-  transition: all 0.3s ease;
+  @apply transition-all duration-300 ease-in-out;
 }
 
 .notification-enter-from {
-  opacity: 0;
-  transform: translateX(100%);
+  @apply opacity-0 transform translate-x-full;
 }
 
 .notification-leave-to {
-  opacity: 0;
-  transform: translateX(100%);
+  @apply opacity-0 transform translate-x-full;
 }
 
 .notification-move {
-  transition: transform 0.3s ease;
+  @apply transition-transform duration-300 ease-in-out;
+}
+
+/* Progress animation */
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.animate-progress {
+  animation: progress linear forwards;
 }
 </style>

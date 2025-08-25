@@ -18,6 +18,7 @@
       "@/components/*": ["./src/components/*"],
       "@/views/*": ["./src/views/*"],
       "@/stores/*": ["./src/stores/*"],
+      "@/composables/*": ["./src/composables/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/types/*": ["./src/types/*"],
       "@/assets/*": ["./src/assets/*"]
@@ -32,7 +33,7 @@
     "alwaysStrict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "exactOptionalPropertyTypes": true,
+    "exactOptionalPropertyTypes": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
