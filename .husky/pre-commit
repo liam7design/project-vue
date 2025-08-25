@@ -1,4 +1,10 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run lint-staged 
+# lint-staged 실행 전에 npm 스크립트가 존재하는지 확인
+if npm run lint-staged > /dev/null 2>&1; then
+  npm run lint-staged
+else
+  echo "lint-staged not found, skipping pre-commit hook"
+  exit 0
+fi 

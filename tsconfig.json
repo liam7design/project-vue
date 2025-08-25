@@ -2,8 +2,6 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
     "env.d.ts",
-    "auto-imports.d.ts",
-    "components.d.ts",
     "vite.config.ts",
     "vitest.config.ts",
     "src/**/*",
@@ -11,9 +9,7 @@
     "src/**/*.ts",
     "src/**/*.tsx"
   ],
-  "exclude": [
-    "src/**/__tests__/*"
-  ],
+  "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
@@ -58,4 +54,4 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   }
-} 
+}

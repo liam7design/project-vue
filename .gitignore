@@ -32,6 +32,12 @@ dist-ssr
 
 # TypeScript
 *.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Auto-generated files
+auto-imports.d.ts
+components.d.ts
+.eslintrc-auto-import.json
 
 # Testing
 coverage
