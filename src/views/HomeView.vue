@@ -10,13 +10,17 @@
           현대적인 웹 애플리케이션 개발을 위한 완벽한 기술 스택
         </p>
         <div class="flex justify-center space-x-4">
-          <button @click="showSuccessNotification" class="btn btn-primary">
+          <router-link to="/vibe" class="btn btn-primary">
+            <Icon name="mdi:music" class="w-5 h-5 mr-2" />
+            VIBE 클론 체험
+          </router-link>
+          <button @click="showSuccessNotification" class="btn btn-secondary">
             성공 알림
           </button>
           <button @click="showErrorNotification" class="btn btn-danger">
             에러 알림
           </button>
-          <button @click="toggleTheme" class="btn btn-secondary">
+          <button @click="toggleTheme" class="btn btn-outline">
             {{ isDarkMode ? '라이트 모드' : '다크 모드' }}
           </button>
         </div>

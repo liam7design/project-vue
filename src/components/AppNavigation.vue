@@ -60,7 +60,8 @@ const { isDark, toggleTheme } = useTheme()
 const navigationItems = [
   { path: '/', label: t('nav.home') },
   { path: '/about', label: t('nav.about') },
-  { path: '/components', label: '컴포넌트 가이드' }
+  { path: '/components', label: '컴포넌트 가이드' },
+  { path: '/vibe', label: 'VIBE 클론' }
 ]
 
 const currentLocale = computed({
@@ -74,4 +75,5 @@ const changeLocale = () => {
   appStore.setLocale(currentLocale.value as 'ko' | 'en')
 }
 </script>
+
 

@@ -29,6 +29,70 @@ const router = createRouter({
       }
     },
     {
+      path: '/vibe',
+      name: 'vibe',
+      component: () => import('@/views/vibe/index.vue'),
+      meta: {
+        title: 'VIBE'
+      }
+    },
+    {
+      path: '/vibe/chart',
+      name: 'vibe-chart',
+      component: () => import('@/views/vibe/ChartView.vue'),
+      meta: {
+        title: '차트'
+      }
+    },
+    {
+      path: '/vibe/genre/:genre',
+      name: 'vibe-genre',
+      component: () => import('@/views/vibe/GenreView.vue'),
+      meta: {
+        title: '장르'
+      }
+    },
+    {
+      path: '/vibe/artist/:id',
+      name: 'vibe-artist',
+      component: () => import('@/views/vibe/ArtistView.vue'),
+      meta: {
+        title: '아티스트'
+      }
+    },
+    {
+      path: '/vibe/album/:id',
+      name: 'vibe-album',
+      component: () => import('@/views/vibe/AlbumView.vue'),
+      meta: {
+        title: '앨범'
+      }
+    },
+    {
+      path: '/vibe/playlist/:id',
+      name: 'vibe-playlist',
+      component: () => import('@/views/vibe/PlaylistView.vue'),
+      meta: {
+        title: '플레이리스트'
+      }
+    },
+    {
+      path: '/vibe/search',
+      name: 'vibe-search',
+      component: () => import('@/views/vibe/SearchView.vue'),
+      meta: {
+        title: '검색'
+      }
+    },
+    {
+      path: '/vibe/my',
+      name: 'vibe-my',
+      component: () => import('@/views/vibe/MyView.vue'),
+      meta: {
+        title: '마이뮤직'
+      }
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/views/NotFoundView.vue'),

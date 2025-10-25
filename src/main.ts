@@ -6,6 +6,7 @@ import { i18n } from './i18n'
 
 // 스타일
 import '@/styles/main.css'
+import '@/styles/music.css'
 
 // 앱 생성
 const app = createApp(App)

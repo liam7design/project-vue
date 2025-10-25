@@ -1,0 +1,185 @@
+/* 음악 스트리밍 사이트 전용 스타일 */
+
+/* 스크롤바 스타일링 */
+.music-app::-webkit-scrollbar {
+  width: 8px;
+}
+
+.music-app::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.music-app::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 4px;
+}
+
+.music-app::-webkit-scrollbar-thumb:hover {
+  background: #606060;
+}
+
+/* 그라데이션 배경 */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* 카드 호버 효과 */
+.music-card {
+  transition: all 0.3s ease;
+}
+
+.music-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* 플레이 버튼 애니메이션 */
+.play-button {
+  transition: all 0.2s ease;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+}
+
+/* 진행 바 스타일 */
+.progress-bar {
+  background: linear-gradient(90deg, #1db954, #1ed760);
+}
+
+/* 텍스트 그라데이션 */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 로딩 애니메이션 */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 플레이어 바 애니메이션 */
+.music-player {
+  backdrop-filter: blur(10px);
+  background: rgba(24, 24, 27, 0.8);
+}
+
+/* 사이드바 애니메이션 */
+.sidebar {
+  transition: transform 0.3s ease;
+}
+
+/* 반응형 그리드 */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* 다크 모드 개선 */
+.dark .music-app {
+  background: #000000;
+}
+
+.dark .music-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+}
+
+.dark .music-card:hover {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+
+/* 커스텀 스크롤바 */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 플레이어 컨트롤 애니메이션 */
+.player-control {
+  transition: all 0.2s ease;
+}
+
+.player-control:hover {
+  transform: scale(1.05);
+}
+
+/* 검색바 포커스 효과 */
+.search-input:focus {
+  box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.5);
+}
+
+/* 트랙 리스트 호버 효과 */
+.track-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* 아티스트 카드 그라데이션 */
+.artist-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+}
+
+/* 플레이리스트 헤더 그라데이션 */
+.playlist-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* 반응형 타이포그래피 */
+@media (max-width: 640px) {
+  .playlist-title {
+    font-size: 2rem;
+  }
+  
+  .artist-title {
+    font-size: 2rem;
+  }
+}
+
+/* 로딩 스켈레톤 */
+.skeleton {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
